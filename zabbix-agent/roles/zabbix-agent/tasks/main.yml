@@ -1,0 +1,9 @@
+---
+- name: installer zabbix installcation repo file.
+  yum: name={{ zabbix_repo_url }} state=present
+- name: installer zabbix-agent package.
+  yum: name=zabbix-agent state=latest
+- name: transfer zabbix-agent.conf configfile.
+  template: src=zabbix_agent.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf
+  notify:
+    - enable now zabbix-agent
